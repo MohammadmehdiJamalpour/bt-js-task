@@ -69,7 +69,12 @@
               />
             </g>
           </svg>
-          <input type="text" class="search" id="search" placeholder="جستجو تراکنش..." />
+          <input
+            type="text"
+            class="search"
+            id="search"
+            placeholder="جستجو تراکنش..."
+          />
         </label>
       </div>
 
@@ -79,18 +84,30 @@
           <div class="transactions-list__header transaction">
             <p class="transactions-list-title">ردیف</p>
             <p class="transactions-list-title">نوع تراکنش</p>
-            <p class="transactions-list-title">مبلغ</p>
+            <div>
+              <p class="transactions-list-title">مبلغ</p>
+              <img
+                id="price-dropdown-arrow"
+                src="/Task-2-SRC-Start/assets/direction-down 2.svg"
+                alt=""
+              />
+            </div>
             <p class="transactions-list-title">شماره پیگیری</p>
-            <p class="transactions-list-title">تاریخ تراکنش</p>
+            <div>
+              <p class="transactions-list-title">تاریخ تراکنش</p>
+              <img
+                id="date-dropdown-arrow"
+                src="/Task-2-SRC-Start/assets/direction-down 2.svg"
+                alt=""
+              />
+            </div>
           </div>
-          <div class="transaction-list__body">
-        
-        </div>
+          <div class="transaction-list__body"></div>
         </div>
       </div>
       <div class="upload">
         <a href="#" class="btn" id="upload-btn">بار گذاری تراکنش ها</a>
-        </div>
+      </div>
     </main>
 
     <script src="./js/index.js"></script>

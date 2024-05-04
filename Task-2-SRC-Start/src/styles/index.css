@@ -45,6 +45,9 @@
   --color-red-500: rgb(239, 68, 68);
   --color-red-300: rgb(252, 165, 165);
   --color-red-100: rgb(254, 226, 226);
+
+  --list-title-color: #878787;
+  --border-color: #ececec;
 }
 
 body {
@@ -86,7 +89,7 @@ html {
   flex-shrink: 0;
   border-radius: 18px;
   border: 1px solid #dfdfdf;
-  background: #fff;
+  background: var(--color-secondary-0);
   padding: 1.3rem 1.5rem;
 }
 .search:hover {
@@ -114,6 +117,7 @@ html {
 }
 
 /* Container  */
+
 .transactions {
   width: 80%;
   margin: 5rem 0;
@@ -147,8 +151,8 @@ html {
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: 10px;
-  border: 2px solid var(--, #ececec);
-  background: #fff;
+  border: 2px solid var(--border-color);
+  background: var(--color-secondary-0);
   box-shadow: 0px 9px 12px 0px rgba(0, 0, 0, 0.05);
 }
 .hidden {
@@ -157,7 +161,7 @@ html {
 /* Transactions List header  */
 
 .tranactions-list__title {
-  color: #878787;
+  color: var(--list-title-color);
   text-align: right;
   font-size: 1.8rem;
   font-weight: 700;
@@ -169,8 +173,8 @@ html {
   flex-direction: column;
   width: 100%;
   border-radius: 10px;
-  border: 1px solid #ececec;
-  background: #fff;
+  border: 1px solid var(--border-color);
+  background: var(--color-secondary-0);
 }
 
 .transaction {
@@ -180,8 +184,25 @@ html {
   justify-items: center;
   align-items: center;
 }
+.transaction div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transaction div img{
+  display: inline-block;
+  cursor: pointer;
+}
+#price-dropdown-arrow,#date-dropdown-arrow {
+  transition: transform 0.3s ease; 
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
 .transaction-list__body .transaction {
-  border-bottom: 1px solid #ececec;
+  border-bottom: 1px solid var(--border-color);
 }
 .transactions-list__header {
   background: #f7f8fa;
@@ -190,7 +211,7 @@ html {
   border-radius: 10px 10px 0px 0px;
 }
 .transactions-list-title {
-  color: #878787;
+  color: var(--list-title-color);
   text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
@@ -208,7 +229,7 @@ html {
 .transaction__order,
 .transaction__id,
 .transaction__time {
-  color: #878787;
+  color: var(--list-title-color);
 }
 .transaction__success {
   color: #acd373;

@@ -14,21 +14,63 @@ uploadBtn.addEventListener("click", function () {
   searchLabel.classList.remove("hidden");
 });
 
+// DOM first Load
 document.addEventListener("DOMContentLoaded", () => {
   axios
     .get("http://localhost:3000/transactions")
     .then((res) => {
       allTransactionsData = res.data;
-      console.log(allTransactionsData);
       //render product on DOM :
       renderTransactions(res.data, filters);
     })
     .catch((err) => console.log(err));
 });
 
+// Drop Down
+
+let ascending = true;
+
+const priceDropdownArrow = document.getElementById("price-dropdown-arrow");
+const dateDropdownArrow = document.getElementById("date-dropdown-arrow");
+
+priceDropdownArrow.addEventListener("click", function () {
+  ascending = !ascending;
+  const sortOrder = ascending ? "price" : "-price";
+  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
+  axios
+    .get(url)
+    .then((res) => {
+      allTransactionsData = res.data;
+      sortByPrice(allTransactionsData, sortOrder);
+      renderTransactions(allTransactionsData, filters);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+
+  this.classList.toggle("rotate180");
+});
+
+dateDropdownArrow.addEventListener("click", function () {
+  ascending = !ascending;
+  const sortOrder = ascending ? "date" : "-date";
+  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
+  axios
+    .get(url)
+    .then((res) => {
+      allTransactionsData = res.data;
+      sortByDate(allTransactionsData, sortOrder);
+      renderTransactions(allTransactionsData, filters);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+
+  this.classList.toggle("rotate180");
+});
+
 function renderTransactions(_transactions, _filters) {
   const filteredTransaction = _transactions.filter((p) => {
-    // console.log(filters);
     return new String(p.refId).includes(_filters.searchItems.trim());
   });
 
@@ -68,8 +110,44 @@ const checkColor = (item) =>
   item.type === "افزایش اعتبار" ? "transaction__success" : "transaction__fail";
 
 
-
+// Input data
 searchInput.addEventListener("input", (e) => {
   filters.searchItems = e.target.value;
   renderTransactions(allTransactionsData, filters);
 });
+
+// Sort by Price
+
+function sortByPrice(data, sortOrder) {
+  const isAscending = sortOrder === "price";
+  const isDescending = sortOrder === "-price";
+
+  return data.sort((a, b) => {
+    const priceA = parseFloat(a.price);
+    const priceB = parseFloat(b.price);
+
+    if (isAscending) {
+      return priceA - priceB;
+    } else if (isDescending) {
+      return priceB - priceA;
+    }
+  });
+}
+
+// Sort By Date
+
+function sortByDate(data, sortOrder) {
+  const isAscending = sortOrder === "date";
+  const isDescending = sortOrder === "-date";
+
+  return data.sort((a, b) => {
+    const timeA = a.date;
+    const timeB = b.date;
+
+    if (isAscending) {
+      return timeA - timeB;
+    } else if (isDescending) {
+      return timeB - timeA;
+    }
+  });
+}
