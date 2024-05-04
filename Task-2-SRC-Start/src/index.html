@@ -12,7 +12,7 @@
     <main class="transactions">
       <div class="transactions-header">
         <h1 class="transactions-title">لیست تراکنش ها</h1>
-        <label class="search-label">
+        <label class="search-label hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -69,14 +69,14 @@
               />
             </g>
           </svg>
-          <input type="text" class="search" placeholder="جستجو تراکنش..." />
+          <input type="text" class="search" id="search" placeholder="جستجو تراکنش..." />
         </label>
       </div>
 
-      <div class="transactions-list-container">
+      <div class="transactions-list-container hidden">
         <h2 class="tranactions-list__title">لیست تراکنش های شما</h2>
         <div class="transaction-list">
-          <div class="transactions-list__header">
+          <div class="transactions-list__header transaction">
             <p class="transactions-list-title">ردیف</p>
             <p class="transactions-list-title">نوع تراکنش</p>
             <p class="transactions-list-title">مبلغ</p>
@@ -88,9 +88,9 @@
         </div>
         </div>
       </div>
-      <!-- <div>
-        <a href="#" id="upload-btn">بار گذاری تراکنش ها</a>
-        </div> -->
+      <div class="upload">
+        <a href="#" class="btn" id="upload-btn">بار گذاری تراکنش ها</a>
+        </div>
     </main>
 
     <script src="./js/index.js"></script>

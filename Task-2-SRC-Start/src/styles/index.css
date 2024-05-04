@@ -138,6 +138,7 @@ html {
 /* Container Body */
 
 .transactions-list-container {
+  display: none;
   width: 100%;
   margin-top: 2rem;
   padding: 5rem 4.3rem;
@@ -150,15 +151,10 @@ html {
   background: #fff;
   box-shadow: 0px 9px 12px 0px rgba(0, 0, 0, 0.05);
 }
-
-/* Transactions List header  */
-.transctions-list__header {
-  border-radius: 10px 10px 0px 0px;
-  background: var(--, #f7f8fa);
-  width: 90%;
-  height: 5rem;
-  flex-shrink: 0;
+.hidden {
+  display: none;
 }
+/* Transactions List header  */
 
 .tranactions-list__title {
   color: #878787;
@@ -176,20 +172,22 @@ html {
   border: 1px solid #ececec;
   background: #fff;
 }
+
 .transaction {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 1.4rem 8rem 1.4rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(auto-fit, minmax(5rem, 1fr));
+  justify-items: center;
+  align-items: center;
+}
+.transaction-list__body .transaction {
   border-bottom: 1px solid #ececec;
 }
-
 .transactions-list__header {
   background: #f7f8fa;
-  display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 1.4rem 8rem;
+  border-radius: 10px 10px 0px 0px;
 }
 .transactions-list-title {
   color: #878787;
@@ -202,17 +200,11 @@ html {
 .transaction__time,
 .transaction__price,
 .transaction__type {
-  min-width: 3rem;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
-  align-self: center;
-  justify-self: center;
-  padding:  0 0.5rem 0 0;
 }
-.transaction__price,.transaction__type,.transaction__id{
-  padding-right: 2rem;
-}
+
 .transaction__order,
 .transaction__id,
 .transaction__time {
