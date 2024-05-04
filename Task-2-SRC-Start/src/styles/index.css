@@ -1,4 +1,6 @@
-* {
+*,
+*::after,
+*::before {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -46,7 +48,6 @@
 }
 
 body {
-  font-family: "Vazirmatn";
   display: flex;
   width: 100%;
   display: flex;
@@ -54,7 +55,9 @@ body {
   justify-content: center;
   background: #f7f8fa;
 }
-
+body {
+  font-family: Vazirmatn;
+}
 html {
   font-size: 62.5%;
 }
@@ -93,9 +96,9 @@ html {
   outline: none;
 }
 .search::placeholder {
+  font-family: Vazirmatn;
   color: var#CACACA;
   text-align: right;
-  font-family: "Vazirmatn";
   font-size: 1.7rem;
   font-weight: 400;
   line-height: 166.909%; /* 28.375px */
@@ -136,7 +139,6 @@ html {
 
 .transactions-list-container {
   width: 100%;
-  display: flex;
   margin-top: 2rem;
   padding: 5rem 4.3rem;
   display: flex;
@@ -167,17 +169,27 @@ html {
 }
 
 .transaction-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border-radius: 10px;
   border: 1px solid #ececec;
   background: #fff;
 }
+.transaction {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.4rem 8rem 1.4rem 5rem;
+  border-bottom: 1px solid #ececec;
+}
+
 .transactions-list__header {
   background: #f7f8fa;
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 1.4rem 6rem;
+  padding: 1.4rem 8rem;
 }
 .transactions-list-title {
   color: #878787;
@@ -185,31 +197,30 @@ html {
   font-size: 1.5rem;
   font-weight: 700;
 }
-.transaction {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 2.2rem 7rem 2rem 4rem;
-  border-bottom: 1px solid #ececec;
-}
 .transaction__order,
 .transaction__id,
 .transaction__time,
 .transaction__price,
 .transaction__type {
-  color: #878787;
+  min-width: 3rem;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 700;
+  align-self: center;
+  justify-self: center;
+  padding:  0 0.5rem 0 0;
 }
-
-.transaction__price {
-  padding-right: 2rem;
-  color: #3a3a3a;
-}
-.transaction__id {
+.transaction__price,.transaction__type,.transaction__id{
   padding-right: 2rem;
 }
-.transaction__type {
-  padding-right: 4.5rem;
+.transaction__order,
+.transaction__id,
+.transaction__time {
+  color: #878787;
+}
+.transaction__success {
+  color: #acd373;
+}
+.transaction__fail {
+  color: #ff5252;
 }
