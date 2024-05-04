@@ -93,7 +93,7 @@ function renderTransactions(_transactions, _filters) {
     const transactionDiv = document.createElement("div");
     transactionDiv.classList.add("transaction");
     transactionDiv.innerHTML = `
-            <p class="transaction__order">${item.id}</p>
+            <p class="transaction__order">${index+1}</p>
             <p class="transaction__type ${statusColor}">${item.type}</p>
             <p class="transaction__price">${item.price}</p>
             <p class="transaction__id">${item.refId}</p>
