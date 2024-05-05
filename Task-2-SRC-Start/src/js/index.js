@@ -4,6 +4,8 @@ let allTransactionsData = [];
 const filters = {
   searchItems: "",
 };
+const priceDropdownArrow = document.getElementById("price-dropdown-arrow");
+const dateDropdownArrow = document.getElementById("date-dropdown-arrow");
 const uploadBtn = document.getElementById("upload-btn");
 const transactionList = document.querySelector(".transactions-list-container");
 const divBtn = document.querySelector(".upload");
@@ -27,47 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Drop Down
-
-let ascending = true;
-
-const priceDropdownArrow = document.getElementById("price-dropdown-arrow");
-const dateDropdownArrow = document.getElementById("date-dropdown-arrow");
-
-priceDropdownArrow.addEventListener("click", function () {
-  ascending = !ascending;
-  const sortOrder = ascending ? "price" : "-price";
-  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
-  axios
-    .get(url)
-    .then((res) => {
-      allTransactionsData = res.data;
-      sortByPrice(allTransactionsData, sortOrder);
-      renderTransactions(allTransactionsData, filters);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-
-  this.classList.toggle("rotate180");
-});
-
-dateDropdownArrow.addEventListener("click", function () {
-  ascending = !ascending;
-  const sortOrder = ascending ? "date" : "-date";
-  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
-  axios
-    .get(url)
-    .then((res) => {
-      allTransactionsData = res.data;
-      sortByDate(allTransactionsData, sortOrder);
-      renderTransactions(allTransactionsData, filters);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-
-  this.classList.toggle("rotate180");
-});
 
 function renderTransactions(_transactions, _filters) {
   const filteredTransaction = _transactions.filter((p) => {
@@ -93,22 +54,62 @@ function renderTransactions(_transactions, _filters) {
     const transactionDiv = document.createElement("div");
     transactionDiv.classList.add("transaction");
     transactionDiv.innerHTML = `
-            <p class="transaction__order">${index+1}</p>
-            <p class="transaction__type ${statusColor}">${item.type}</p>
-            <p class="transaction__price">${item.price}</p>
-            <p class="transaction__id">${item.refId}</p>
-            <p class="transaction__time">${localDate} ساعت ${localTime}</p>
-          `;
+    <p class="transaction__order">${index + 1}</p>
+    <p class="transaction__type ${statusColor}">${item.type}</p>
+    <p class="transaction__price">${item.price}</p>
+    <p class="transaction__id">${item.refId}</p>
+    <p class="transaction__time">${localDate} ساعت ${localTime}</p>
+    `;
 
     transactions.append(transactionDiv);
   });
 }
+let ascending = true;
+
+priceDropdownArrow.addEventListener("click", function () {
+  ascending = !ascending;
+  const sortOrder = ascending ? "price" : "-price";
+  const sortValue = "price";
+  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
+  axios
+    .get(url)
+    .then((res) => {
+      allTransactionsData = res.data;
+
+      // sortByPrice(allTransactionsData, sortOrder);
+      sortBy(allTransactionsData, sortOrder, sortValue);
+      renderTransactions(allTransactionsData, filters);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+
+  this.classList.toggle("rotate180");
+});
+
+dateDropdownArrow.addEventListener("click", function () {
+  ascending = !ascending;
+  const sortOrder = ascending ? "date" : "-date";
+  const sortValue = "date";
+  const url = `http://localhost:3000/transactions?sort=${sortOrder}`;
+  axios
+    .get(url)
+    .then((res) => {
+      allTransactionsData = res.data;
+      sortBy(allTransactionsData, sortOrder, sortValue);
+      renderTransactions(allTransactionsData, filters);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+
+  this.classList.toggle("rotate180");
+});
 
 // Status Color style Function
 
 const checkColor = (item) =>
   item.type === "افزایش اعتبار" ? "transaction__success" : "transaction__fail";
-
 
 // Input data
 searchInput.addEventListener("input", (e) => {
@@ -116,38 +117,18 @@ searchInput.addEventListener("input", (e) => {
   renderTransactions(allTransactionsData, filters);
 });
 
-// Sort by Price
+// Sort Function
+function sortBy(data, sortOrder, sortValue) {
+  const isAscending = !sortOrder.startsWith("-");
 
-function sortByPrice(data, sortOrder) {
-  const isAscending = sortOrder === "price";
-  const isDescending = sortOrder === "-price";
-
+  console.log(data, sortValue, sortValue);
   return data.sort((a, b) => {
-    const priceA = parseFloat(a.price);
-    const priceB = parseFloat(b.price);
-
+    const itemA = a[sortValue];
+    const itemB = b[sortValue];
     if (isAscending) {
-      return priceA - priceB;
-    } else if (isDescending) {
-      return priceB - priceA;
-    }
-  });
-}
-
-// Sort By Date
-
-function sortByDate(data, sortOrder) {
-  const isAscending = sortOrder === "date";
-  const isDescending = sortOrder === "-date";
-
-  return data.sort((a, b) => {
-    const timeA = a.date;
-    const timeB = b.date;
-
-    if (isAscending) {
-      return timeA - timeB;
-    } else if (isDescending) {
-      return timeB - timeA;
+      return itemB - itemA;
+    } else {
+      return itemA - itemB;
     }
   });
 }
