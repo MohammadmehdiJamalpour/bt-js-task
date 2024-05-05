@@ -189,12 +189,13 @@ html {
   align-items: center;
   justify-content: center;
 }
-.transaction div img{
+.transaction div img {
   display: inline-block;
   cursor: pointer;
 }
-#price-dropdown-arrow,#date-dropdown-arrow {
-  transition: transform 0.3s ease; 
+#price-dropdown-arrow,
+#date-dropdown-arrow {
+  transition: transform 0.3s ease;
 }
 
 .rotate180 {

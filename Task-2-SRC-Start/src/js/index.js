@@ -120,7 +120,6 @@ searchInput.addEventListener("input", (e) => {
 // Sort Function
 function sortBy(data, sortOrder, sortValue) {
   const isAscending = !sortOrder.startsWith("-");
-
   console.log(data, sortValue, sortValue);
   return data.sort((a, b) => {
     const itemA = a[sortValue];
