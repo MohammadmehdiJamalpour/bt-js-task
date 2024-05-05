@@ -2,23 +2,24 @@
 
 const searchInput = document.querySelector("#search");
 const transactions = document.querySelector(".transaction-list__body");
-let allTransactionsData = [];
+const transactionList = document.querySelector(".transaction-list");
 const filters = {
   searchItems: "",
 };
 const priceDropdownArrow = document.getElementById("price-dropdown-arrow");
 const dateDropdownArrow = document.getElementById("date-dropdown-arrow");
 const uploadBtn = document.getElementById("upload-btn");
-const transactionList = document.querySelector(".transactions-list-container");
+const transactionListContainer = document.querySelector(".transactions-list-container");
 const divBtn = document.querySelector(".upload");
 let ascending = true;
 const searchLabel = document.querySelector(".search-label");
+const notFountAlert = document.querySelector(".not-found-alert");
 
 //  Transaction Upload Btn :
 
 uploadBtn.addEventListener("click", function () {
   divBtn.classList.add("hidden");
-  transactionList.classList.remove("hidden");
+  transactionListContainer.classList.remove("hidden");
   searchLabel.classList.remove("hidden");
 });
 
@@ -36,13 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
 // Render Function :
 
 function renderTransactions(_transactions, _filters) {
-  const filteredTransaction = _transactions.filter((p) => {
-    return new String(p.refId).includes(_filters.searchItems.trim());
-  });
+  const filteredTransaction = _transactions.filter((p) =>
+    new String(p.refId).includes(_filters.searchItems.trim())
+  );
 
   transactions.innerHTML = ``;
-
   // render to DOM :
+  if (filteredTransaction.length === 0) {
+    transactionList.classList.add("hidden");
+    notFountAlert.classList.remove("hidden");
+  } else {
+    transactionList.classList.remove("hidden");
+    notFountAlert.classList.add("hidden");
+  }
   filteredTransaction.forEach((item, index) => {
     let options = { year: "numeric", month: "numeric", day: "numeric" };
     let timeOptions = { hour: "2-digit", minute: "2-digit" };
@@ -123,7 +130,6 @@ searchInput.addEventListener("input", (e) => {
 // Sort Function
 function sortBy(data, sortOrder, sortValue) {
   const isAscending = !sortOrder.startsWith("-");
-  console.log(data, sortValue, sortValue);
   return data.sort((a, b) => {
     const itemA = a[sortValue];
     const itemB = b[sortValue];

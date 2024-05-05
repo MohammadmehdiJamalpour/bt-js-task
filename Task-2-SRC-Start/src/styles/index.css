@@ -121,9 +121,7 @@ html {
   box-shadow: 0px 9px 12px 0px rgba(0, 0, 0, 0.05);
 }
 
-.hidden {
-  display: none;
-}
+
 /* Transactions List header  */
 
 .tranactions-list__title {
@@ -203,4 +201,10 @@ html {
 }
 .transaction__fail {
   color: #ff5252;
+}
+.not-found-alert__text{
+  font-size: 2rem;
+}
+.hidden {
+  display: none;
 }
