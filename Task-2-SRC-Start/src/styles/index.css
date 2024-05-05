@@ -13,6 +13,7 @@
   --list-title-color: #878787;
   --border-color: #ececec;
   --search-btn-border-color: #dfdfdf;
+  --title-color: rgb(107, 114, 128);
 }
 
 body {
@@ -60,7 +61,7 @@ html {
 }
 .search:focus {
   outline: none;
-  border: 2px solid var(--search-btn-border-color);
+  border: 3px solid var(--title-color);
 }
 .search::placeholder {
   font-family: Vazirmatn;
@@ -100,6 +101,7 @@ html {
 .transactions-title {
   font-size: 3.3rem;
   font-weight: 800;
+  color: var(--title-color);
 }
 
 /* Container Body */
