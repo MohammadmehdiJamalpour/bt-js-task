@@ -1,3 +1,5 @@
+// Global Variables :
+
 const searchInput = document.querySelector("#search");
 const transactions = document.querySelector(".transaction-list__body");
 let allTransactionsData = [];
@@ -9,14 +11,17 @@ const dateDropdownArrow = document.getElementById("date-dropdown-arrow");
 const uploadBtn = document.getElementById("upload-btn");
 const transactionList = document.querySelector(".transactions-list-container");
 const divBtn = document.querySelector(".upload");
+let ascending = true;
 const searchLabel = document.querySelector(".search-label");
+
+//  Transaction Upload Btn :
+
 uploadBtn.addEventListener("click", function () {
   divBtn.classList.add("hidden");
   transactionList.classList.remove("hidden");
   searchLabel.classList.remove("hidden");
 });
 
-// DOM first Load
 document.addEventListener("DOMContentLoaded", () => {
   axios
     .get("http://localhost:3000/transactions")
@@ -28,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((err) => console.log(err));
 });
 
-// Drop Down
+// Render Function :
 
 function renderTransactions(_transactions, _filters) {
   const filteredTransaction = _transactions.filter((p) => {
@@ -47,10 +52,6 @@ function renderTransactions(_transactions, _filters) {
       timeOptions
     );
     const statusColor = checkColor(item);
-    console.log();
-    // create
-    //add content
-    // append to products
     const transactionDiv = document.createElement("div");
     transactionDiv.classList.add("transaction");
     transactionDiv.innerHTML = `
@@ -64,7 +65,8 @@ function renderTransactions(_transactions, _filters) {
     transactions.append(transactionDiv);
   });
 }
-let ascending = true;
+
+// Drop Down Events
 
 priceDropdownArrow.addEventListener("click", function () {
   ascending = !ascending;
@@ -76,7 +78,7 @@ priceDropdownArrow.addEventListener("click", function () {
     .then((res) => {
       allTransactionsData = res.data;
 
-      // sortByPrice(allTransactionsData, sortOrder);
+      // Sort Data based on Price
       sortBy(allTransactionsData, sortOrder, sortValue);
       renderTransactions(allTransactionsData, filters);
     })
@@ -96,6 +98,7 @@ dateDropdownArrow.addEventListener("click", function () {
     .get(url)
     .then((res) => {
       allTransactionsData = res.data;
+      // sort data base on dates
       sortBy(allTransactionsData, sortOrder, sortValue);
       renderTransactions(allTransactionsData, filters);
     })
